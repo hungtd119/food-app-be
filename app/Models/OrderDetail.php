@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class OrderDetail extends Model
 {
     public $table = 'order_details';
-    public $_id = 'id';
-    public $_order_id = 'order_id';
-    public $_food_id = 'food_id';
-    public $_quantity = 'quantity';
+    const _id = 'id';
+    const _order_id = 'order_id';
+    const _food_id = 'food_id';
+    const _sid = 'sid';
+    const _quantity = 'quantity';
     use HasFactory;
     protected $primaryKey = 'id';
     public $incrementing = false;
@@ -21,6 +22,7 @@ class OrderDetail extends Model
         'id',
         'order_id',
         'food_id',
+        'sid',
         'quantity'
     ];
     public function order(): BelongsTo

@@ -67,4 +67,7 @@ abstract class BaseServiceController extends Controller
             }
         }
     }
+    public function getCount(){
+        return $this->model->count();
+    }
 }

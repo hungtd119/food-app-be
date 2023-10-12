@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('portion');
             $table->integer('calory');
             $table->integer('unit');
+            $table->double('prize');
             $table->unsignedBigInteger('category_id'); //fk
             $table->unsignedBigInteger('restaurent_id'); //fk
             $table->timestamps();

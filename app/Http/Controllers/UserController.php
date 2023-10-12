@@ -20,7 +20,11 @@ class UserController extends BaseServiceController
         $offSet = ($page - 1) * $limit;
 
         $users = $this->getAll($limit, $offSet, $keyword);
-        return $this->responseJson('get all users', $users);
+        $total = $this->getCount();
+        return $this->responseJson('get all users', [
+            'data'=>$users,
+            'total'=>$total
+        ]);
     }
     public function find($sid)
     {

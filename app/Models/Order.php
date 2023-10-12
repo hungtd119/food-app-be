@@ -11,10 +11,11 @@ class Order extends Model
 {
     use HasFactory;
     public $table = 'orders';
-    public $_id = 'id';
-    public $_restaurent_id = 'restaurent_id';
-    public $_customer_id = 'customer_id';
-    public $_total_amount = 'total_amount';
+    const _id = 'id';
+    const _sid = 'sid';
+    const _restaurent_id = 'restaurent_id';
+    const _customer_id = 'customer_id';
+    const _total_amount = 'total_amount';
 
     use HasFactory;
     protected $primaryKey = 'id';
@@ -23,6 +24,7 @@ class Order extends Model
     protected $fillable = [
         'id',
         'restaurent_id',
+        'sid',
         'customer_id',
         'total_amount',
     ];

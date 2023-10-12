@@ -19,7 +19,11 @@ class OrderController extends BaseServiceController
         $offSet = ($page - 1) * $limit;
 
         $orders = $this->getAll($limit, $offSet, $keyword);
-        return $this->responseJson('get all orders', $orders);
+        $total = $this->getCount();
+        return $this->responseJson('get all orders', [
+            'data'=>$orders,
+            'total'=>$total
+        ]);
     }
     public function find($sid)
     {
@@ -41,5 +45,14 @@ class OrderController extends BaseServiceController
         $dataInputs = $this->getDataInput($request);
         $order = $this->store($dataInputs, $id);
         return $this->responseJson("Updated text success", $order);
+    }
+    public function createNewOrder (Request $request){
+        $dataInput = $this->getDataInput($request);
+        $dataInput['total_amount'] = 0;
+        $newOrder = new Order();
+        $newOrder->fill($dataInput);
+        $newOrder->save();
+        $order = $this->model->where(Order::_sid,$newOrder->sid)->first();
+        return $this->responseJson("Create new order",$order);
     }
 }

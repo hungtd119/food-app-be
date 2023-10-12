@@ -19,7 +19,11 @@ class FoodController extends BaseServiceController
         $offSet = ($page - 1) * $limit;
 
         $foods = $this->getAll($limit, $offSet, $keyword);
-        return $this->responseJson('get all foods', $foods);
+        $total = $this->getCount();
+        return $this->responseJson('get all foods', [
+            'data'=>$foods,
+            'total'=>$total
+        ]);
     }
     public function find($sid)
     {
@@ -41,5 +45,39 @@ class FoodController extends BaseServiceController
         $dataInputs = $this->getDataInput($request);
         $food = $this->store($dataInputs, $id);
         return $this->responseJson("Updated text success", $food);
+    }
+    public function createFoodByRestaurentId(Request $request){
+        $request->validate([
+            "restaurent_id"=>"required",
+            "category_id"=>"required",
+            "title"=>"required",
+            "thumbnail"=>"required",
+            "description"=>"required",
+            "portion"=>"required",
+            "calory"=>"required",
+            "unit"=>"required",
+        ]);
+        $dataInputs = $this->getDataInput($request);
+        $createdFood = new Food();
+        $createdFood->fill($dataInputs);
+        $createdFood->save();
+        return $this->responseJson("Tạo món ăn theo nhà hàng thành công",$createdFood);
+    }
+    public function fetchListFoodByRestaurentId(Request $request){
+        $request->validate([
+            'restaurent_id'=>'required'
+        ]);
+        $dataInputs = $this->getDataInput($request);
+        $foods = $this->model->select(
+            Food::_id,
+            Food::_title,
+            Food::_thumbnail,
+            Food::_unit,
+            Food::_prize,
+            Food::_calory,
+            Food::_description,
+            Food::_restaurent_id,
+        )->where(Food::_restaurent_id,$dataInputs['restaurent_id'])->get();
+        return $this->responseJson("get foods by restaurent id",$foods);
     }
 }

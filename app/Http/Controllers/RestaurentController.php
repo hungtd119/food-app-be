@@ -19,7 +19,11 @@ class RestaurentController extends  BaseServiceController
         $offSet = ($page - 1) * $limit;
 
         $restaurents = $this->getAll($limit, $offSet, $keyword);
-        return $this->responseJson('get all restaurents', $restaurents);
+        $total = $this->getCount();
+        return $this->responseJson('get all restaurents', [
+            'data'=>$restaurents,
+            'total'=>$total
+        ]);
     }
     public function find($sid)
     {
@@ -41,5 +45,27 @@ class RestaurentController extends  BaseServiceController
         $dataInputs = $this->getDataInput($request);
         $restaurent = $this->store($dataInputs, $id);
         return $this->responseJson("Updated text success", $restaurent);
+    }
+    public function createRestaurent(Request $request){
+        $request->validate([
+            "user_id"=>"required",
+            "name"=>"required",
+            "taxCode"=>"required",
+            "thumbnail"=>"required"
+        ]);
+        $dataInputs = $this->getDataInput($request);
+        $createdRestaurent = new Restaurent();
+        $createdRestaurent->fill($dataInputs);
+        $createdRestaurent->save();
+        return $this->responseJson('create restaurents by user id',$createdRestaurent);
+
+    }
+    public function getByUserId (Request $request){
+        $request->validate([
+            'user_id'=>'required'
+        ]);
+        $userId = $request->input('user_id');
+        $restaurents = $this->model->query()->where('user_id',$userId)->get();
+        return $this->responseJson('Get all restaurents by user id',$restaurents);
     }
 }

@@ -42,4 +42,17 @@ class OrderDetailController extends BaseServiceController
         $orderDetail = $this->store($dataInputs, $id);
         return $this->responseJson("Updated text success", $orderDetail);
     }
+    public function createOrderDetailByOrderId(Request $request){
+        $dataInputs = $this->getDataInput($request);
+        $newOrderDetail = new OrderDetail();
+        $newOrderDetail->fill($dataInputs);
+        $newOrderDetail->save();
+        $orderDetail = $this->model->where(OrderDetail::_sid,$newOrderDetail->sid)->first();
+        return $this->responseJson("Create new order detail", $orderDetail);
+    }
+    public function getByOrderIdWithFood (Request $request){
+        $dataInputs = $this->getDataInput($request);
+        $orderDetails = $this->model->with('food')->where(OrderDetail::_order_id,$dataInputs['order_id'])->get();
+        return $this->responseJson("get order details by order id",$orderDetails);
+    }
 }

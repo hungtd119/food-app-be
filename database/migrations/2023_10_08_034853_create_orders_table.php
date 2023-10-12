@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('restaurent_id'); //fk
             $table->unsignedBigInteger('customer_id'); //fk
             $table->integer('total_amount');
+            $table->string('sid');
             $table->timestamps();
             $table->foreign('restaurent_id')->references('id')->on('restaurents')->onDelete('cascade');
             $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');

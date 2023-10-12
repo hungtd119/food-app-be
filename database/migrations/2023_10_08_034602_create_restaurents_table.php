@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('name');
             $table->integer('taxCode');
             $table->string('thumbnail');
+            $table->string('address');
+            $table->double('rating');
+            $table->integer('accessUnit');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

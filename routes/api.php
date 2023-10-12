@@ -9,6 +9,7 @@ use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\RestaurentController;
 use App\Http\Controllers\UserController;
+use App\Models\Restaurent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,8 @@ Route::prefix('restaurent')->group(function () {
     Route::get('/{sid}', [RestaurentController::class, 'find']);
     Route::delete('/{sid}', [RestaurentController::class, 'deleteById']);
     Route::put('/', [RestaurentController::class, 'update']);
+    Route::post('/create',[RestaurentController::class,'createRestaurent']);
+    Route::post('/get-all-by-user-id',[RestaurentController::class,'getByUserId']);
 });
 Route::prefix('category')->group(function () {
     Route::get('/', [CategoryController::class, 'index']);
@@ -53,18 +56,23 @@ Route::prefix('food')->group(function () {
     Route::get('/{sid}', [FoodController::class, 'find']);
     Route::delete('/{sid}', [FoodController::class, 'deleteById']);
     Route::put('/', [FoodController::class, 'update']);
+    Route::post('/created-by-restaurent-id', [FoodController::class, 'createFoodByRestaurentId']);
+    Route::post('/get-by-res-id',[FoodController::class,'fetchListFoodByRestaurentId']);
 });
 Route::prefix('order')->group(function () {
     Route::get('/', [OrderController::class, 'index']);
     Route::get('/{sid}', [OrderController::class, 'find']);
     Route::delete('/{sid}', [OrderController::class, 'deleteById']);
     Route::put('/', [OrderController::class, 'update']);
+    Route::post('/create-new-order',[OrderController::class,'createNewOrder']);
 });
 Route::prefix('order-detail')->group(function () {
     Route::get('/', [OrderDetailController::class, 'index']);
     Route::get('/{sid}', [OrderDetailController::class, 'find']);
     Route::delete('/{sid}', [OrderDetailController::class, 'deleteById']);
     Route::put('/', [OrderDetailController::class, 'update']);
+    Route::post('/create-order-detail-by-order-id',[OrderDetailController::class,'createOrderDetailByOrderId']);
+    Route::post('/get-by-order-id-with-food',[OrderDetailController::class,'getByOrderIdWithFood']);
 });
 Route::prefix('policy')->group(function () {
     Route::get('/', [PolicyController::class, 'index']);

@@ -15,6 +15,10 @@ class Restaurent extends Model
     public $_name = 'name';
     public $taxCode = 'taxCode';
     public $_thumbnail = 'thumbnail';
+    public $_address = 'address';
+    public $_rating = 'rating';
+    public $_accessUnit = 'accessUnit';
+
     use HasFactory;
     protected $primaryKey = 'id';
     protected $timestamp = true;
@@ -24,7 +28,10 @@ class Restaurent extends Model
         'user_id',
         'name',
         'taxCode',
-        'thumbnail'
+        'thumbnail',
+        'address',
+        'rating',
+        'accessUnit',
     ];
 
     public function user(): BelongsTo

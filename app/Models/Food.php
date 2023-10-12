@@ -10,15 +10,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Food extends Model
 {
     public $table = 'foods';
-    public $_id = 'id';
-    public $_title = 'title';
-    public $_thumbnail = 'thumbnail';
-    public $_description = 'description';
-    public $_portion = 'portion';
-    public $_calory = 'calory';
-    public $_unit = 'unit';
-    public $_category_id = 'category_id';
-    public $_restaurent_id = 'restaurent_id';
+    const _id = 'id';
+    const _title = 'title';
+    const _thumbnail = 'thumbnail';
+    const _description = 'description';
+    const _portion = 'portion';
+    const _calory = 'calory';
+    const _prize = 'prize';
+    const _unit = 'unit';
+    const _category_id = 'category_id';
+    const _restaurent_id = 'restaurent_id';
     use HasFactory;
     protected $primaryKey = 'id';
     public $incrementing = false;
@@ -31,6 +32,7 @@ class Food extends Model
         'portion',
         'calory',
         'unit',
+        'prize',
         'category_id',
         'restaurent_id'
     ];

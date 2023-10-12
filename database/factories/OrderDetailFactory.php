@@ -22,6 +22,7 @@ class OrderDetailFactory extends Factory
             'id' => fake()->numerify("######"),
             'order_id' => Order::all()->random()->id,
             'food_id' => Food::all()->random()->id,
+            'sid'=>fake()->sentence(20),
             'quantity' => fake()->numerify('#'),
         ];
     }

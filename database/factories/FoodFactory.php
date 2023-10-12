@@ -26,6 +26,7 @@ class FoodFactory extends Factory
             'portion' => fake()->numerify("#"),
             'calory' => fake()->numerify("####"),
             'unit' => fake()->numerify('##'),
+            'prize' => fake()->numerify('##'),
             'category_id' => Category::all()->random()->id,
             'restaurent_id' => Restaurent::all()->random()->id
         ];

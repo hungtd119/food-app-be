@@ -22,6 +22,7 @@ class OrderFactory extends Factory
             'id' => fake()->numerify("######"),
             'restaurent_id' => Restaurent::all()->random()->id,
             'customer_id' => User::all()->random()->id,
+            'sid'=>fake()->sentence(20),
             'total_amount' => fake()->numerify("######"),
         ];
     }
